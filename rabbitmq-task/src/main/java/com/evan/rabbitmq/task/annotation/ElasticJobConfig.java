@@ -20,7 +20,7 @@ public @interface ElasticJobConfig {
     /**
      * 任务名称
      */
-    @AliasFor(annotation = Component.class)
+    @AliasFor(annotation = Component.class, attribute = "value")
     String name();
 
     String cron() default "";
