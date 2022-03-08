@@ -2,10 +2,7 @@ package com.evan.rabbitmq.api;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +15,7 @@ import java.util.Map;
  */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Setter
 public final class Message {
     /**
      * 消息的唯一ID
@@ -47,7 +45,7 @@ public final class Message {
     /**
      * 消息类型：默认为confirm消息类型
      */
-    private final String messageType;
+    private String messageType;
 
     public static Builder newBuilder(final String messageId, final String topic, final String routingKey) {
         return new Builder(messageId, topic, routingKey);
