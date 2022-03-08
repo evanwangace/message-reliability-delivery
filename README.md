@@ -1,2 +1,3 @@
 # message-reliability-delivery
-:rabbit: rabbitmq message reliability delivery solution.
+
+:rabbit: rabbitmq 消息可靠性投递解决方案.
