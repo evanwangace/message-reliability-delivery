@@ -1,4 +1,4 @@
-package com.evan.rabbitmq;
+package com.evan.rabbitmq.api;
 
 /**
  * 回调函数处理

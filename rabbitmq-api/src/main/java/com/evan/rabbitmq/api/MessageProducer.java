@@ -1,4 +1,4 @@
-package com.evan.rabbitmq;
+package com.evan.rabbitmq.api;
 
 import java.util.List;
 

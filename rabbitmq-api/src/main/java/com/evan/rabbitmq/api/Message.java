@@ -1,4 +1,4 @@
-package com.evan.rabbitmq;
+package com.evan.rabbitmq.api;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;

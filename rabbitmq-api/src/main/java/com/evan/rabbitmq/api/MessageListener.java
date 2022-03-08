@@ -1,4 +1,4 @@
-package com.evan.rabbitmq;
+package com.evan.rabbitmq.api;
 
 /**
  * 消费者监听消息

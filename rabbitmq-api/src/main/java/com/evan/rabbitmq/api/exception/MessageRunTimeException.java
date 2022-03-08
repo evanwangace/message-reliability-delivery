@@ -1,4 +1,4 @@
-package com.evan.rabbitmq.exception;
+package com.evan.rabbitmq.api.exception;
 
 /**
  * 消息运行时异常
