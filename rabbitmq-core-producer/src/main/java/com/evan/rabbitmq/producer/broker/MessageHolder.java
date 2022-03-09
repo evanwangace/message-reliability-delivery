@@ -9,7 +9,7 @@ import java.util.List;
  * 批量发送消息载体
  *
  * @author evan
- * @date 2022-03-02
+ * @date 2022-03-09
  */
 public class MessageHolder {
 

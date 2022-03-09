@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 自动装配
+ * rabbitmq生产者自动配置类
  *
  * @author evan
  * @date 2022-03-09

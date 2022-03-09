@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * 批量发送消息载体异步队列
  *
  * @author evan
- * @date 2022-03-02
+ * @date 2022-03-09
  */
 @Slf4j
 public class MessageHolderAsyncQueue {
@@ -25,7 +25,7 @@ public class MessageHolderAsyncQueue {
                     THREAD_SIZE,
                     60L,
                     TimeUnit.SECONDS,
-                    new ArrayBlockingQueue<Runnable>(QUEUE_SIZE),
+                    new ArrayBlockingQueue<>(QUEUE_SIZE),
                     r -> {
                         Thread t = new Thread(r);
                         t.setName("rabbitmq_client_async_sender");
