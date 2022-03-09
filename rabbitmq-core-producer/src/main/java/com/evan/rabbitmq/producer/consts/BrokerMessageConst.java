@@ -11,4 +11,9 @@ public class BrokerMessageConst {
      * 重试的时间间隔
      */
     public static final Integer TIMEOUT = 1;
+
+    /**
+     * correlationData id组合模板字符串
+     */
+    public static final String CORRELATION_DATA_ID_TEMPLATE = "%s#%s#%s";
 }

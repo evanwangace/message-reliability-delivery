@@ -72,8 +72,6 @@ public class RabbitTemplateContainer implements RabbitTemplate.ConfirmCallback {
         // 除了迅速应答，都需要对消息进行确认应答
         if (!MessageType.RAPID.equals(messageType)) {
             newTemplate.setConfirmCallback(this);
-            // 发送事务消息，此处只是为了演示api，并且一般情况不会选择事务消息，性能较差
-            //newTemplate.setChannelTransacted(true);
         }
 
         rabbitMap.putIfAbsent(topic, newTemplate);

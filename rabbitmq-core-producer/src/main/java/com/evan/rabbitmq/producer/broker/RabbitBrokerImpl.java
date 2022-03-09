@@ -15,6 +15,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.util.Date;
 import java.util.List;
 
+import static com.evan.rabbitmq.producer.consts.BrokerMessageConst.CORRELATION_DATA_ID_TEMPLATE;
+
 /**
  * 真正的发送不同类型的消息实现类
  *
@@ -74,7 +76,7 @@ public class RabbitBrokerImpl implements RabbitBroker {
      */
     private void sendKernel(Message message) {
         AsyncBaseQueue.submit(() -> {
-            CorrelationData correlationData = new CorrelationData(String.format("%s#%s#%s",
+            CorrelationData correlationData = new CorrelationData(String.format(CORRELATION_DATA_ID_TEMPLATE,
                     message.getMessageId(), System.currentTimeMillis(), message.getMessageType()));
             String topic = message.getTopic();
             String routingKey = message.getRoutingKey();
@@ -94,7 +96,7 @@ public class RabbitBrokerImpl implements RabbitBroker {
     public void sendMessages() {
         List<Message> messages = MessageHolder.clear();
         messages.forEach(message -> MessageHolderAsyncQueue.submit(() -> {
-            CorrelationData correlationData = new CorrelationData(String.format("%s#%s#%s",
+            CorrelationData correlationData = new CorrelationData(String.format(CORRELATION_DATA_ID_TEMPLATE,
                     message.getMessageId(), System.currentTimeMillis(), message.getMessageType()));
             String topic = message.getTopic();
             String routingKey = message.getRoutingKey();
