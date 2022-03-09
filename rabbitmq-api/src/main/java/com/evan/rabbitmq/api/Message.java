@@ -20,27 +20,27 @@ public final class Message {
     /**
      * 消息的唯一ID
      */
-    private final String messageId;
+    private String messageId;
 
     /**
      * 消息的主题
      */
-    private final String topic;
+    private String topic;
 
     /**
      * 消息的路由规则
      */
-    private final String routingKey;
+    private String routingKey;
 
     /**
      * 消息的附加属性
      */
-    private final Map<String, Object> attributes;
+    private Map<String, Object> attributes;
 
     /**
      * 延迟消息的参数配置
      */
-    private final Integer delayMills;
+    private Integer delayMills;
 
     /**
      * 消息类型：默认为confirm消息类型
