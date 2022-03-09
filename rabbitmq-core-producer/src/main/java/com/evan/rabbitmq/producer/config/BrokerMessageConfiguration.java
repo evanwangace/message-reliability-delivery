@@ -1,5 +1,6 @@
 package com.evan.rabbitmq.producer.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
  * @author evan
  * @date 2022-03-09
  */
+@Slf4j
 @Configuration
 public class BrokerMessageConfiguration {
 
@@ -25,7 +27,7 @@ public class BrokerMessageConfiguration {
 
     @Bean
     public DataSourceInitializer initDataSourceInitializer(DataSource rabbitProducerDataSource) {
-        System.err.println("--------------rabbitProducerDataSource-----------:" + rabbitProducerDataSource);
+        log.info("--------------rabbitProducerDataSource-----------:" + rabbitProducerDataSource);
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(rabbitProducerDataSource);
         initializer.setDatabasePopulator(databasePopulator());

@@ -39,7 +39,7 @@ public class RetryMessageDataflowJob implements DataflowJob<BrokerMessage> {
     @Override
     public List<BrokerMessage> fetchData(ShardingContext shardingContext) {
         List<BrokerMessage> list = messageStoreService.fetchTimeOutMessage4Retry(BrokerMessageStatus.SENDING);
-        log.info("--------@@@@@ 抓取数据集合, 数量：	{} 	@@@@@@-----------", list.size());
+        log.info("--------@@@@@ 抓取数据集合, 当前需要重试的消息数量：	{} 	@@@@@@-----------", list.size());
         return list;
     }
 
