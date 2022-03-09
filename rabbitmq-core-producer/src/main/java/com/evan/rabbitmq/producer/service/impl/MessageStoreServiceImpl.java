@@ -5,8 +5,6 @@ import com.evan.rabbitmq.producer.enums.BrokerMessageStatus;
 import com.evan.rabbitmq.producer.mapper.BrokerMessageMapper;
 import com.evan.rabbitmq.producer.service.MessageStoreService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;

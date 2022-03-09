@@ -7,8 +7,6 @@ import com.evan.rabbitmq.api.SendCallback;
 import com.evan.rabbitmq.api.exception.MessageRunTimeException;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

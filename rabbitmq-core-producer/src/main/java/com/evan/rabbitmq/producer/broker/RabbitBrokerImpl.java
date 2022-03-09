@@ -5,6 +5,8 @@ import com.evan.rabbitmq.api.MessageType;
 import com.evan.rabbitmq.producer.consts.BrokerMessageConst;
 import com.evan.rabbitmq.producer.entity.BrokerMessage;
 import com.evan.rabbitmq.producer.enums.BrokerMessageStatus;
+import com.evan.rabbitmq.producer.queue.Queue;
+import com.evan.rabbitmq.producer.queue.QueueFactory;
 import com.evan.rabbitmq.producer.service.MessageStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.util.Date;
 import java.util.List;
 
+import static com.evan.rabbitmq.producer.consts.BrokerMessageConst.ASYNC_BASE_QUEUE;
 import static com.evan.rabbitmq.producer.consts.BrokerMessageConst.CORRELATION_DATA_ID_TEMPLATE;
 
 /**
@@ -75,15 +78,7 @@ public class RabbitBrokerImpl implements RabbitBroker {
      * @param message 消息
      */
     private void sendKernel(Message message) {
-        AsyncBaseQueue.submit(() -> {
-            CorrelationData correlationData = new CorrelationData(String.format(CORRELATION_DATA_ID_TEMPLATE,
-                    message.getMessageId(), System.currentTimeMillis(), message.getMessageType()));
-            String topic = message.getTopic();
-            String routingKey = message.getRoutingKey();
-            RabbitTemplate rabbitTemplate = rabbitTemplateContainer.getTemplate(message);
-            rabbitTemplate.convertAndSend(topic, routingKey, message, correlationData);
-            log.info("#RabbitBrokerImpl.sendKernel# send to rabbitmq, messageId: {}", message.getMessageId());
-        });
+        sendMessageByAsyncQueue(message);
     }
 
     @Override
@@ -95,14 +90,19 @@ public class RabbitBrokerImpl implements RabbitBroker {
     @Override
     public void sendMessages() {
         List<Message> messages = MessageHolder.clear();
-        messages.forEach(message -> MessageHolderAsyncQueue.submit(() -> {
+        messages.forEach(this::sendMessageByAsyncQueue);
+    }
+
+    private void sendMessageByAsyncQueue(Message message) {
+        Queue queue = QueueFactory.getQueue(ASYNC_BASE_QUEUE);
+        queue.submit(() -> {
             CorrelationData correlationData = new CorrelationData(String.format(CORRELATION_DATA_ID_TEMPLATE,
                     message.getMessageId(), System.currentTimeMillis(), message.getMessageType()));
             String topic = message.getTopic();
             String routingKey = message.getRoutingKey();
             RabbitTemplate rabbitTemplate = rabbitTemplateContainer.getTemplate(message);
             rabbitTemplate.convertAndSend(topic, routingKey, message, correlationData);
-            log.info("#RabbitBrokerImpl.sendMessages# send to rabbitmq, messageId: {}", message.getMessageId());
-        }));
+            log.info("#RabbitBrokerImpl.sendMessageByAsyncQueue# send to rabbitmq, messageId: {}", message.getMessageId());
+        });
     }
 }
